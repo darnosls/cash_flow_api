@@ -1,12 +1,12 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.0-SNAPSHOT'
+	id 'org.springframework.boot' version '2.5.0-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
 
 group = 'com.dls'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '16'
 
 configurations {
 	compileOnly {
@@ -21,25 +21,29 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
-	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
-	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'org.flywaydb:flyway-core'
-	implementation 'org.springframework:spring-jdbc'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'io.r2dbc:r2dbc-postgresql'
-	runtimeOnly 'org.postgresql:postgresql'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+  	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.3'
+  	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.3'
+  	compileOnly 'org.projectlombok:lombok:1.18.20'
+  	runtimeOnly 'com.h2database:h2:1.4.200'
+  	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.2'
+	testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.11.2'
+
+//	testCompileOnly('org.springframework.boot:spring-boot-starter-test')
+////	testCompileOnly("org.junit.jupiter:junit-jupiter-api:5.3.1")
+//	testCompileOnly('org.junit.jupiter:junit-jupiter-engine:5.7.2')
+//	testCompileOnly('org.mockito:mockito-junit-jupiter:2.23.0')
 }
+//test.doFirst {
+//	activeProfiles = 'test'
+//}
 
 test {
+//	systemProperty('spring.profiles.active', 'test')
 	useJUnitPlatform()
+//	include 'src/test/java/**'
 }
